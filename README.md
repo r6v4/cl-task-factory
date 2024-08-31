@@ -73,3 +73,16 @@ As we have said before, the framework is composed entirely of pointer arrays and
 2. Identify the device. We need to know the number of CPU threads and determine the length of the two-dimensional pointer array according to the type of business. For example, I use i7-4790k, which is a single-channel 4-core 8-thread machine with 4 cores and 8 vcpus. Static web servers may be computationally intensive, so the length of the two-dimensional array is equal to the number of vcpus, which is 8. For servers for dynamic websites or io-intensive programs that provide data storage services, it is reasonable The length should be twice the number of vcpus, which is 16. If you want to keep a vcpus to handle background tasks such as the functions of the safety and environmental protection department, the reasonable length is the result of the number of vcpus minus one, multiplied by two, and then plus one, which is 15. The number of workers in the largest workshop in the factory is selected as the length of the two-dimensional pointer array.
 3. Clarify the positions. Create a corresponding number of workers and grassroots managers, and point the pointers at the corresponding positions of the two-dimensional array to the primitives. Clarify the job responsibilities. Each worker operates independently and cannot go to other posts. Each basic element completes its work according to its own function.The primitives in the same column of the factory matrix belong to the same assembly line. In this model, the assembly line does not branch according to the conditional tree, but enters different sections according to the process required by the material state, that is, enters the corresponding section of the assembly line. Workers in the same row of the factory matrix belong to the same workshop and do not communicate with each other. Workers in the same workshop are prohibited from chatting with each other while working. Workers only send work information to other workers on the assembly line, which ensures the high concurrency and efficiency of the framework.If a separate thread is needed in the same workshop to synchronize messages such as login information and abnormal information, these tasks should be handed over to the safety and environmental protection department in the additional column for processing and coordination. Workers in the workshop only coordinate the work information of the assembly line in the same column, and do not coordinate the status information of other workers in the workshop in the same row, because there is a special logistics department to handle it in other threads.
 4. Clarify the plan......
+```text
+----------------------------------------------------
+|营销中心 Marketing center                    ||    |
+====================================================
+|储运车间 Storage and transportation workshop ||安环 |
+----------------------------------------------------
+|粗炼车间 Rough refining workshop             ||安环 |
+----------------------------------------------------
+|电解车间 Electrolysis workshop               ||安环 |
+----------------------------------------------------
+|精馏车间 Distillation workshop               ||安环 |
+----------------------------------------------------
+```
